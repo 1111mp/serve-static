@@ -1,3 +1,3 @@
-export * from './dist/serve-static.constants';
-export * from './dist/serve-static.module';
-export * from './dist/serve-static.providers';
+export * from './lib/serve-static.constants';
+export * from './lib/serve-static.module';
+export * from './lib/serve-static.providers';

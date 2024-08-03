@@ -42,27 +42,41 @@ export class FastifyLoader extends AbstractLoader {
             ? options.serveRoot + validatePath(options.renderPath as string)
             : options.serveRoot;
 
-        app.get(renderPath, (req: any, res: any) => {
-          const stream = fs.createReadStream(indexFilePath);
-          res.type('text/html').send(stream);
-        });
+        app.get(
+          renderPath,
+          options.renderFn
+            ? options.renderFn
+            : (req: any, res: any) => {
+                const stream = fs.createReadStream(indexFilePath);
+                res.type('text/html').send(stream);
+              }
+        );
       } else {
         app.register(fastifyStatic, {
           root: clientPath,
           ...(options.serveStaticOptions || {}),
           wildcard: false
         });
-        app.get(options.renderPath, (req: any, res: any) => {
-          const stream = fs.createReadStream(indexFilePath);
-          if (
-            options.serveStaticOptions &&
-            options.serveStaticOptions.setHeaders
-          ) {
-            const stat = fs.statSync(indexFilePath);
-            options.serveStaticOptions.setHeaders(res, indexFilePath, stat);
-          }
-          res.type('text/html').send(stream);
-        });
+        app.get(
+          options.renderPath,
+          options.renderFn
+            ? options.renderFn
+            : (req: any, res: any) => {
+                const stream = fs.createReadStream(indexFilePath);
+                if (
+                  options.serveStaticOptions &&
+                  options.serveStaticOptions.setHeaders
+                ) {
+                  const stat = fs.statSync(indexFilePath);
+                  options.serveStaticOptions.setHeaders(
+                    res,
+                    indexFilePath,
+                    stat
+                  );
+                }
+                res.type('text/html').send(stream);
+              }
+        );
       }
     });
   }

@@ -21,12 +21,12 @@ export class ExpressLoader extends AbstractLoader {
     const express = loadPackage('express', 'ServeStaticModule', () =>
       require('express')
     );
-    optionsArr.forEach(options => {
+    optionsArr.forEach((options) => {
       options.renderPath = options.renderPath || DEFAULT_RENDER_PATH;
       const clientPath = options.rootPath || DEFAULT_ROOT_PATH;
       const indexFilePath = this.getIndexFilePath(clientPath);
 
-      const renderFn = (req: unknown, res: any, next: Function) => {
+      const defaultRenderFn = (req: unknown, res: any, next: Function) => {
         if (!isRouteExcluded(req, options.exclude)) {
           if (
             options.serveStaticOptions &&
@@ -40,6 +40,8 @@ export class ExpressLoader extends AbstractLoader {
           next();
         }
       };
+
+      const renderFn = options.renderFn ?? defaultRenderFn;
 
       if (options.serveRoot) {
         app.use(

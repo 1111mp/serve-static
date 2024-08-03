@@ -1,7 +1,8 @@
 import { Provider, Type } from '@nestjs/common';
 import { ModuleMetadata } from '@nestjs/common/interfaces';
+import type { NextFunction } from 'express';
 
-export interface ServeStaticModuleOptions {
+export interface ServeStaticModuleOptions<TRequest = any, TResponse = any> {
   /**
    * Static files root directory. Default: "client"
    */
@@ -10,6 +11,12 @@ export interface ServeStaticModuleOptions {
    * Path to render static app (concatenated with the `serveRoot` value). Default: * (wildcard - all paths). Note: `RegExp` is not supported by the `@nestjs/platform-fastify`.
    */
   renderPath?: string | RegExp;
+  /**
+   * Custom render function to handle requests.
+   * This function will be called with the request, response, and next function.
+   * You can use this function to implement custom logic for rendering your static app.
+   */
+  renderFn?: (req: TRequest, res: TResponse, next: NextFunction) => void;
   /**
    * Root path under which static app will be served. Default: ""
    */

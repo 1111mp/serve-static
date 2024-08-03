@@ -1,11 +1,9 @@
 # source
-# lib
-# index.ts
-index.js
-index.d.ts
+lib
+index.ts
 package-lock.json
 tslint.json
-# tsconfig.json
+tsconfig.json
 .prettierrc
 
 # misc

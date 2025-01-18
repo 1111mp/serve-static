@@ -18,11 +18,11 @@
     "prepare": "husky install"
   },
   "peerDependencies": {
+    "@fastify/static": "^6.5.0 || ^7.0.0",
     "@nestjs/common": "^9.0.0 || ^10.0.0",
     "@nestjs/core": "^9.0.0 || ^10.0.0",
-    "express": "^4.18.1",
-    "fastify": "^4.7.0",
-    "@fastify/static": "^6.5.0 || ^7.0.0"
+    "express": "^4.18.1 || ^5.0",
+    "fastify": "^4.7.0"
   },
   "peerDependenciesMeta": {
     "express": {
@@ -38,6 +38,7 @@
   "devDependencies": {
     "@commitlint/cli": "19.3.0",
     "@commitlint/config-angular": "19.3.0",
+    "@fastify/static": "7.0.4",
     "@nestjs/common": "10.3.10",
     "@nestjs/core": "10.3.10",
     "@types/node": "20.14.14",
@@ -48,7 +49,6 @@
     "eslint-plugin-import": "2.29.1",
     "express": "4.19.2",
     "fastify": "4.28.1",
-    "@fastify/static": "7.0.4",
     "husky": "9.1.4",
     "lint-staged": "15.2.7",
     "prettier": "3.3.3",
@@ -67,6 +67,6 @@
     "url": "https://github.com/nestjs/serve-static"
   },
   "dependencies": {
-    "path-to-regexp": "0.2.5"
+    "path-to-regexp": "^8.2.0"
   }
 }
